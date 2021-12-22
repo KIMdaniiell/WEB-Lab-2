@@ -6,9 +6,10 @@ function validate() {
     let r;
     console.log("Валидация...");
 
+    let rAlreadyChecked = false; //переменная для проверки количества отмеченных R чекбоксов
     Array.from(document.getElementsByClassName("formfield"))
         .forEach(node => {
-                switch (node.id) {
+                switch (node.name) {
                     case 'X' : {
                         let v = validateX(node);
                         dataIsCorrect = dataIsCorrect * v;
@@ -17,22 +18,40 @@ function validate() {
                         break;
                     }
                     case 'Y' : {
-                        let v = validateY(node);
-                        dataIsCorrect = dataIsCorrect * v;
-                        console.log("\tВалидность Y = " + v);
-                        y = node.value;
+                        if (node.checked) {
+                            let v = validateY(node);
+                            dataIsCorrect = dataIsCorrect * v;
+                            console.log("\tВалидность Y = " + v);
+                            y = node.value;
+                        }
                         break;
                     }
                     case 'R' : {
-                        let v = validateR(node);
-                        dataIsCorrect = dataIsCorrect * v;
-                        console.log("\tВалидность R = " + v);
-                        r = node.value;
+                        if (node.checked) {
+                            if (rAlreadyChecked === true) {
+                                document.getElementById("r_error").innerHTML="<br>Пожалуйста, выберите одно значение R";
+                                dataIsCorrect = false;
+                                console.log("\tВалидность R = " + false);
+                            } else {
+                                document.getElementById("r_error").innerHTML="";
+                                let v = validateR(node);
+                                dataIsCorrect = dataIsCorrect * v;
+                                console.log("\tВалидность R = " + v);
+                                r = node.value;
+                                rAlreadyChecked = true;
+                            }
+                        }
                         break;
                     }
                 }
             }
         );
+    if (rAlreadyChecked === false) {
+        document.getElementById("r_error").innerHTML="<br>Пожалуйста, выберите одно значение R";
+        dataIsCorrect = false;
+        console.log("\tВалидность R = " + false);
+    }
+
     console.log("\tX равен:" + x);
     console.log("\tY равен:" + y);
     console.log("\tR равен:" + r);
@@ -40,6 +59,8 @@ function validate() {
     if (dataIsCorrect) {
         console.log("Формируется POST запрос.");
         handle(x, y, r);
+        console.log("POST запрос сформирован и отправлен.");
+        return true;
     }
     return false;
 }
@@ -67,7 +88,13 @@ function validateX(field) {
     **/
     let x = field.value;
 
-    if (x === "-5" || x === "-4" || x === "-3" || x === "-2" || x === "-1" || x === "0" || x === "1" || x === "2" || x === "3") {
+    let reg1 = /^-5(\.0+)?$/;           //  [ -5.(0) ; -5 ]
+    let reg2 = /^-[34](\.\d+)?$/;       //  ( -5 ; -3 ]
+    let reg3 = /^-?[0-2](\.\d+)?$/;     //  ( -3 ; 3 )
+    let reg4 = /^3(\.0+)?$/;            //  [ 3 ; 3.(0) )
+    let reg5 = /^0+$/;                  //  (0)
+
+    if (reg1.test(x) || reg2.test(x) || reg3.test(x) || reg4.test(x) || reg5.test(x)) {
         unmarkField(field);
         return true;
     }
@@ -82,13 +109,7 @@ function validateY(field) {
     **/
     let y = field.value;
 
-    let reg1 = /^-5(\.0+)?$/;           //  [ -5.(0) ; -5 ]
-    let reg2 = /^-[34](\.\d+)?$/;       //  ( -5 ; -3 ]
-    let reg3 = /^-?[0-2](\.\d+)?$/;     //  ( -3 ; 3 )
-    let reg4 = /^3(\.0+)?$/;            //  [ 3 ; 3.(0) )
-    let reg5 = /^0+$/;                  //  (0)
-
-    if (reg1.test(y) || reg2.test(y) || reg3.test(y) || reg4.test(y) || reg5.test(y)) {
+    if (y === "-5" || y === "-4" || y === "-3" || y === "-2" || y === "-1" || y === "0" || y === "1" || y === "2" || y === "3") {
         unmarkField(field);
         return true;
     }
@@ -96,62 +117,61 @@ function validateY(field) {
     return false;
 }
 
-function validateR(field) {
-    /** Выполняет валидацию поля R.
-     * x ∈ { 1, 2, 3, 4, 5}
-     * @param field HTML элемент - т.е. фоле формы.
-    **/
+    function validateR(field) {
+        /** Выполняет валидацию поля R.
+         * x ∈ { 1, 2, 3, 4, 5}
+         * @param field HTML элемент - т.е. фоле формы.
+         **/
 
-    let r = field.value;
+        let r = field.value;
 
-    if (r === "1" || r === "2" || r === "3" || r === "4" || r === "5") {
-        unmarkField(field);
-        return true;
-    }
-    markField(field);
-    return false;
-}
-
-function handle(x, y, r) {
-    /**
-     * Формирует POST запрос и отправляет на обработку.
-     * @param x,y,r Данные введенные пользователем в форму .
-     **/
-
-    let xhr = new XMLHttpRequest();
-    xhr.open('POST', './    ')
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-    xhr.onload = function () {
-
-
+        if (r === "1" || r === "2" || r === "3" || r === "4" || r === "5") {
+            unmarkField(field);
+            return true;
+        }
+        markField(field);
+        return false;
     }
 
-    xhr.send('X=' + x + '&Y=' + y + '&R=' + r);
-    //Т.к. искользуется метод POST, данные передаются в теле запроса.
-}
+    function handle(x, y, r) {
+        /**
+         * Формирует POST запрос и отправляет на обработку.
+         * @param x,y,r Данные введенные пользователем в форму .
+         **/
 
-function addRow(response) {
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', './controller')
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-    /**
-     * Добавляет в HTML таблицу данные о результате вычисления и вводные данные.
-     * @param response Расспаршенный (см. handle) ассоциативный массив с данными.
-     */
+        xhr.onload = function () {
+            window.location.reload(true);
+        }
 
-    let row = document.createElement('tr');
+        xhr.send('X=' + x + '&Y=' + y + '&R=' + r);
+        //Т.к. искользуется метод POST, данные передаются в теле запроса.
+    }
 
-    //этот участок кода нужен, для красивого отображения длинных чисел в таблице
+    function addRow(response) {
+
+        /**
+         * Добавляет в HTML таблицу данные о результате вычисления и вводные данные.
+         * @param response Расспаршенный (см. handle) ассоциативный массив с данными.
+         */
+
+        let row = document.createElement('tr');
+
+        //этот участок кода нужен, для красивого отображения длинных чисел в таблице
         let y = `${response['y']}`;
         if (y.length>6) {
             y = Number(`${response['y']}`).toFixed(6);
         }
 
-    row.innerHTML = `<td>${response['x']}</td>
+        row.innerHTML = `<td>${response['x']}</td>
                     <td>` + y + `</td>
                     <td>${response['r']}</td>
                     <td>${response['result']}</td>
                     <td>${response['ctime']}</td>
                     <td>${response['etime']}</td>`;
 
-    document.getElementById('result_table').appendChild(row);
-}
+        document.getElementById('result_table').appendChild(row);
+    }
