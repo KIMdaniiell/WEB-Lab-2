@@ -4,6 +4,7 @@ import WebLab.Data.TableDataBean;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -66,7 +67,7 @@ public class AreaCheckServlet extends HttpServlet {
         HttpSession session = request.getSession();
         long start_time = (long) session.getAttribute("startTime");
         long current_time = System.nanoTime();
-        return (double) (current_time - start_time) / 1000;
+        return (double) (current_time - start_time) / 1000000;
     }
     private boolean xIsValid (String x){
         /* Выполняет валидацию поля X.
