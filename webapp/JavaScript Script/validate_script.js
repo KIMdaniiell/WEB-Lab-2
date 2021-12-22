@@ -60,7 +60,7 @@ function validate() {
         console.log("Формируется POST запрос.");
         handle(x, y, r);
         console.log("POST запрос сформирован и отправлен.");
-        return true;
+        return false;
     }
     return false;
 }

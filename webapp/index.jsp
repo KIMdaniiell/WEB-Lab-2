@@ -16,6 +16,7 @@
         .bordered {
             border: 2px solid #2d333b;
             border-radius: 5%;
+            width: 100%;
         }
     </style>
 </head>
@@ -46,74 +47,57 @@
                     <tr>
                         <td>
                             <label for="X">X </label>
-                            <!--
-                            <select class="formfield" id="X" name="X" required>
-                                <option value="">Выбрать</option>
-                                <option value="-4">-4</option>
-                                <option value="-3">-3</option>
-                                <option value="-2">-2</option>
-                                <option value="-1">-1</option>
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                            </select>
-                            -->
+
                             <input class="formfield" id="X" type="text" name="X" placeholder="Значение от -5 до 3" required>
                             <span class="error"></span>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label>Y </label>
-                            <!--
-                            <input class="formfield" id="Y" type="text" name="Y" placeholder="Значение от -3 до 5" required>
-                            -->
-                            <label for="Y1">-5</label>
-                            <input class="formfield" id="Y1" name="Y" type="radio" value="-5" required>
-                            <label for="Y2">-4</label>
-                            <input class="formfield" id="Y2" name="Y" type="radio" value="-4" required>
-                            <label for="Y3">-3</label>
-                            <input class="formfield" id="Y3" name="Y" type="radio" value="-3" required>
-                            <label for="Y4">-2</label>
-                            <input class="formfield" id="Y4" name="Y" type="radio" value="-2" required>
-                            <label for="Y5">-1</label>
-                            <input class="formfield" id="Y5" name="Y" type="radio" value="-1" required>
-                            <label for="Y6">0</label>
-                            <input class="formfield" id="Y6" name="Y" type="radio" value="0" required>
-                            <label for="Y7">1</label>
-                            <input class="formfield" id="Y7" name="Y" type="radio" value="1" required>
-                            <label for="Y8">2</label>
-                            <input class="formfield" id="Y8" name="Y" type="radio" value="2" required>
-                            <label for="Y9">3</label>
-                            <input class="formfield" id="Y9" name="Y" type="radio" value="3" required>
+                            <label style="display: inline;" for="Yradios">Y </label>
+
+                            <table style="display: inline;" id="Yradios">
+                                <tr>
+                                    <td><label for="Y1">-5</label></td>
+                                    <td><label for="Y2">-4</label></td>
+                                    <td><label for="Y3">-3</label></td>
+                                    <td><label for="Y4">-2</label></td>
+                                    <td><label for="Y5">-1</label></td>
+                                    <td><label for="Y6">0</label></td>
+                                    <td><label for="Y7">1</label></td>
+                                    <td><label for="Y8">2</label></td>
+                                    <td><label for="Y9">3</label></td>
+                                </tr>
+                                <tr>
+                                    <td><input class="formfield" id="Y1" name="Y" type="radio" value="-5" required></td>
+                                    <td><input class="formfield" id="Y2" name="Y" type="radio" value="-4" required></td>
+                                    <td><input class="formfield" id="Y3" name="Y" type="radio" value="-3" required></td>
+                                    <td><input class="formfield" id="Y4" name="Y" type="radio" value="-2" required></td>
+                                    <td><input class="formfield" id="Y5" name="Y" type="radio" value="-1" required></td>
+                                    <td><input class="formfield" id="Y6" name="Y" type="radio" value="0" required></td>
+                                    <td><input class="formfield" id="Y7" name="Y" type="radio" value="1" required></td>
+                                    <td><input class="formfield" id="Y8" name="Y" type="radio" value="2" required></td>
+                                    <td><input class="formfield" id="Y9" name="Y" type="radio" value="3" required></td>
+                                </tr>
+                            </table>
+
                             <span class="error"></span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <label>R </label>
-                            <!--
-                            <select class="formfield" id="R" name="R" required>
-                                <option value="">Выбрать</option>
-                                <option value="1">1</option>
-                                <option value="1.5">1.5</option>
-                                <option value="2">2</option>
-                                <option value="2.5">2.5</option>
-                                <option value="3">3</option>
-                            </select>
-                            -->
+
                             <label for="R1">1</label>
-                            <input class="formfield rbox" id="R1" name="R" type="checkbox" value="1">
+                            <input class="formfield" id="R1" name="R" type="checkbox" value="1">
                             <label for="R2">2</label>
-                            <input class="formfield rbox" id="R2" name="R" type="checkbox" value="2">
+                            <input class="formfield" id="R2" name="R" type="checkbox" value="2">
                             <label for="R3">3</label>
-                            <input class="formfield rbox" id="R3" name="R" type="checkbox" value="3">
+                            <input class="formfield" id="R3" name="R" type="checkbox" value="3">
                             <label for="R4">4</label>
-                            <input class="formfield rbox" id="R4" name="R" type="checkbox" value="4">
+                            <input class="formfield" id="R4" name="R" type="checkbox" value="4">
                             <label for="R5">5</label>
-                            <input class="formfield rbox" id="R5" name="R" type="checkbox" value="5">
+                            <input class="formfield" id="R5" name="R" type="checkbox" value="5">
                             <span class="error" id="r_error"></span>
                         </td>
                     </tr>

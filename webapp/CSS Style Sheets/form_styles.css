@@ -52,3 +52,7 @@ input:hover, select:hover, button:hover{
     color: #aab6c3;
     box-sizing: border-box;
 }
+
+#Yradios {
+    margin: 0 0 0 5%;
+}

@@ -3,22 +3,23 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+
     <servlet>
         <servlet-name>Controller</servlet-name>
         <servlet-class>WebLab.Servlets.ControllerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AreaCheck</servlet-name>
+        <servlet-class>WebLab.Servlets.AreaCheckServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AreaCheck</servlet-name>
+        <url-pattern>AreaCheck</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
         <url-pattern>controller</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>Area-check</servlet-name>
-        <servlet-class>WebLab.Servlets.AreaCheckServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Area-check</servlet-name>
-        <url-pattern>areaCheck</url-pattern>
     </servlet-mapping>
 
 </web-app>
