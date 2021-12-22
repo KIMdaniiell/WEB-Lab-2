@@ -2,6 +2,7 @@ package WebLab.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class TableDataBean implements Serializable {
@@ -41,8 +42,8 @@ public class TableDataBean implements Serializable {
         return result;
     }
 
-    public LocalDateTime getCurrentTime() {
-        return current_time;
+    public String getCurrentTime() {
+        return current_time.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
     }
 
     public double getProcessingTime() {
