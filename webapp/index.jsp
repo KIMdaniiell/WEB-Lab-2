@@ -125,9 +125,9 @@
                 </tr>
                 <tr></tr>
                 <%
-                    Object sessionBeans = request.getSession().getAttribute("sessionBeans");
-                    if ( sessionBeans instanceof LinkedList ){
-                        LinkedList beanList = (LinkedList) sessionBeans;
+                    Object contextBeans = application.getAttribute("contextBeans");
+                    if ( contextBeans instanceof LinkedList ){
+                        LinkedList beanList = (LinkedList) contextBeans;
                         for (Object o: beanList) {
                             if (o instanceof TableDataBean) {
                                 TableDataBean bean = (TableDataBean) o;
