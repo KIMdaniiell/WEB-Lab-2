@@ -1,4 +1,4 @@
-#Graph{
-    margin: 5%;
-    width: 70%;
+#Graph, #Canvas {
+    width: 512px;
+    height: 512px;
 }

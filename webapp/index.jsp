@@ -12,11 +12,14 @@
     <link rel="stylesheet" href="CSS%20Style%20Sheets/form_styles.css">
     <link rel="stylesheet" href="CSS%20Style%20Sheets/resultTable_styles.css">
     <script src="JavaScript%20Script/validate_script.js"></script>
+    <script src="JavaScript%20Script/click_script.js"></script>
     <style>
         .bordered {
             border: 2px solid #2d333b;
             border-radius: 5%;
             width: 100%;
+            padding: 20px;
+            margin: 0 30px 0 30px;
         }
     </style>
 </head>
@@ -37,7 +40,9 @@
 <table id="content">
     <tr id="table_section">
         <td id="left_part">
-            <img id="Graph" class="bordered" src="Resources/Graph.png" alt="Resource not found">
+            <canvas id="Canvas" class="bordered" width="512" height="512">
+                <img id="Graph" class="bordered" src="Resources/CoolGraph.png" alt="Resource not found">
+            </canvas>
         </td>
         <td id="right=part">
             <h2>Форма</h2>
