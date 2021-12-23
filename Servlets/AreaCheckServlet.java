@@ -4,7 +4,6 @@ import WebLab.Data.TableDataBean;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,18 +48,19 @@ public class AreaCheckServlet extends HttpServlet {
         tdBean.setProcessing_time(getProcessingTime(request));
         tdBean.setCurrent_time(LocalDateTime.now());
 
-        request.getSession().setAttribute("tdBean",tdBean);
+        //getServletContext().setAttribute("tdBean",tdBean);
+        //request.getSession().setAttribute("tdBean",tdBean);
 
         LinkedList beanList;
-        Object sessionBeans = request.getSession().getAttribute("sessionBeans");
-        if ( sessionBeans instanceof LinkedList ){
-            beanList = (LinkedList) sessionBeans;
+        Object contextBeans = getServletContext().getAttribute("contextBeans");
+        if ( contextBeans instanceof LinkedList ){
+            beanList = (LinkedList) contextBeans;
         } else {
             beanList = new LinkedList<> ();
         }
         beanList.add(tdBean);
-        request.getSession().setAttribute("sessionBeans",beanList);
-        requestDispatcher.  forward(request, response);
+        getServletContext().setAttribute("contextBeans",beanList);
+        requestDispatcher.forward(request, response);
     }
 
     private double getProcessingTime(HttpServletRequest request){
