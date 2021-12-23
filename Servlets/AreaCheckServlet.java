@@ -27,29 +27,30 @@ public class AreaCheckServlet extends HttpServlet {
         String requestParameterY = request.getParameter("Y");
         String requestParameterR = request.getParameter("R");
 
-        if (xIsValid(requestParameterX) && yIsValid(requestParameterY) && rIsValid(requestParameterR)) {
+        try {
             double x = Double.parseDouble(requestParameterX);
             double y = Double.parseDouble(requestParameterY);
             double r = Double.parseDouble(requestParameterR);
-            tdBean.setX(x);
-            tdBean.setY(y);
-            tdBean.setR(r);
 
-            if (isHit(x,y,r)){
-                tdBean.setResult("Попадание");
+            if (xIsValid(x) && yIsValid(y) && rIsValid(r)) {
+                tdBean.setX(x);
+                tdBean.setY(y);
+                tdBean.setR(r);
+
+                if (isHit(x,y,r)){
+                    tdBean.setResult("HIT");
+                } else {
+                    tdBean.setResult("MISS");
+                }
             } else {
-                tdBean.setResult("Промах");
+                tdBean.setResult("OUT OF BOUNDS");
             }
-
-        } else {
-            tdBean.setResult("Некорректные данные!");
+        } catch (NumberFormatException e){
+            tdBean.setResult("INVALID DATA");
         }
 
         tdBean.setProcessing_time(getProcessingTime(request));
         tdBean.setCurrent_time(LocalDateTime.now());
-
-        //getServletContext().setAttribute("tdBean",tdBean);
-        //request.getSession().setAttribute("tdBean",tdBean);
 
         LinkedList beanList;
         Object contextBeans = getServletContext().getAttribute("contextBeans");
@@ -69,47 +70,23 @@ public class AreaCheckServlet extends HttpServlet {
         long current_time = System.nanoTime();
         return (double) (current_time - start_time) / 1000000;
     }
-    private boolean xIsValid (String x){
+    private boolean xIsValid (double x){
         /* Выполняет валидацию поля X.
          * x ∈ { -5, ..., 3}
          */
-        try {
-            double temp = Double.parseDouble(x);
-            if (temp >= -5 && temp <=3) {
-                return  true;
-            }
-        } catch (NumberFormatException e){
-            return false;
-        }
-        return  false;
+        return  (x >= -5 && x <=3);
     }
-    private boolean yIsValid (String y){
+    private boolean yIsValid (double y){
         /* Выполняет валидацию поля Y.
          * y ∈ { -5, -4, -3, -2, -1, 0, 1, 2, 3}
          */
-        try {
-            double temp = Double.parseDouble(y);
-            if (temp >= -5 && temp <=3) {
-                return  true;
-            }
-        } catch (NumberFormatException e){
-            return false;
-        }
-        return  false;
+        return (y >= -5 && y <=3);
     }
-    private boolean rIsValid (String r){
+    private boolean rIsValid (double r){
         /* Выполняет валидацию поля R.
          * x ∈ { 1, 2, 3, 4, 5}
          */
-        try {
-            double temp = Double.parseDouble(r);
-            if (temp >= 1 && temp <=5) {
-                return  true;
-            }
-        } catch (NumberFormatException e){
-            return false;
-        }
-        return  false;
+        return  (r >= 1 && r <=5);
     }
 
     private boolean isHit(double x, double y, double r){
