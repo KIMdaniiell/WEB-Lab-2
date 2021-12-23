@@ -57,9 +57,9 @@ function showAttempts(){
             let y = parseFloat(rowdata[1].innerText)/r;
             let result= rowdata[3].innerText;
 
-            if (result === "Промах") {
+            if (result === "MISS") {
                 context.fillStyle = 'red';
-            } else if (result === "Попадание") {
+            } else if (result === "HIT") {
                 context.fillStyle = 'green';
             }
             context.beginPath();
