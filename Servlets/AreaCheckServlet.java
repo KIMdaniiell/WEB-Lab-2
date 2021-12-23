@@ -88,7 +88,7 @@ public class AreaCheckServlet extends HttpServlet {
          * y ∈ { -5, -4, -3, -2, -1, 0, 1, 2, 3}
          */
         return ( y.equals("-5") || y.equals("-4") || y.equals("-3")
-                || y.equals("-2") || y.equals("-1") || y.equals("-0")
+                || y.equals("-2") || y.equals("-1") || y.equals("-0") || y.equals("0")
                 || y.equals("1") || y.equals("2") || y.equals("3"));
     }
     private boolean rIsValid (String r){
